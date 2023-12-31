@@ -1228,9 +1228,9 @@ body.loaded #preloader{
 /* showcase */
 h1{
     font-family: Satisfy;
-    font-size:50px;
+    font-size:20px;
     text-align:center;
-    color:black;
+    color:rgb(255, 255, 255);
     padding:1%;
   }
   #gallery{
