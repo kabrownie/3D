@@ -21,6 +21,10 @@
  
 
 */
+
+// modal
+
+// modalend
 $(document).ready(function(){
     $("img").click(function(){
     var t = $(this).attr("src");
