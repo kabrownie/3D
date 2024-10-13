@@ -24,6 +24,13 @@
 
 // modal
 
+  document.addEventListener('contextmenu', function (event) {
+    if (event.target.tagName === 'IMG') {
+      event.preventDefault(); // Disable right-click for images
+    }
+  });
+
+
 // modalend
 $(document).ready(function(){
     $("img").click(function(){
