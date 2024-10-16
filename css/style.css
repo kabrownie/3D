@@ -1283,6 +1283,26 @@ h1{
     -webkit-transition: all 0.2s;
     transition: all 0.2s;
   }
+ 
+  .iframe-container {
+    position: relative;
+    width: 100%; /* Full width of the parent container */
+    height: 0; /* Set height to 0 for the aspect ratio trick */
+    padding-bottom: 56.25%; /* 16:9 Aspect Ratio (9 / 16 * 100) */
+    overflow: hidden; /* Hide overflow */
+    padding-top: 5%;
+}
+
+.iframe-container iframe {
+    position: absolute;
+    padding-top: 5%;
+    top: 0;
+    left: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    border: 0; /* Remove border if needed */
+}
+
   /* test *//* Style for the fullscreen overlay */
 #imageOverlay {
     position: fixed;
@@ -1313,4 +1333,10 @@ h1{
     cursor: pointer;
     z-index: 10000;
   }
-  
+  .box{
+    float:left;
+    margin-right:20px;
+}
+.clear{
+    clear:both;
+}
