@@ -1,23 +1,7 @@
-
-       
-
-// Import the Firebase SDK
+// Import Firebase SDK
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
 import { getStorage, ref, listAll, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-storage.js";
-//  firebase
-
-    // Import the functions you need from the SDKs you need
-    
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-analytics.js";
-
-     // Import the Firebase SDK
-    
-    
-    // TODO: Add SDKs for Firebase products that you want to use
-    // https://firebase.google.com/docs/web/setup#available-libraries
-  
-    // Your web app's Firebase configuration
-    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-analytics.js";
 
 // Firebase configuration
 const firebaseConfig = {
@@ -33,31 +17,31 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const storage = getStorage(app);
- // Initialize Firebase
-    
- const analytics = getAnalytics(app);
- // Initialize Firebase
+const analytics = getAnalytics(app);
 
-// Function to load images and videos from Firebase Storage
+// Load images and videos from Firebase Storage and display in gallery
 document.addEventListener("DOMContentLoaded", async () => {
   const gallery = document.getElementById('gallery');
-  const storageRef = ref(storage, 'upload/');  // Reference to 'upload/' folder
+  const storageRef = ref(storage, 'upload/'); // Reference to 'upload/' folder
 
-  // List all files in 'uploads/' folder
   listAll(storageRef)
     .then((res) => {
       res.items.forEach((itemRef) => {
-        // Get the download URL for each file
+        // Get download URL for each file
         getDownloadURL(itemRef).then((url) => {
-          // Check if the file is an image or video based on file extension
           const fileType = itemRef.name.split('.').pop().toLowerCase();
           if (['jpg', 'jpeg', 'png', 'gif'].includes(fileType)) {
-            // Add an image element to the gallery
+            // Add image element to the gallery
             const img = document.createElement('img');
             img.src = url;
+            img.alt = itemRef.name;
+            img.addEventListener('click', () => {
+              // Show the image in the overlay when clicked
+              showImageInOverlay(url);
+            });
             gallery.appendChild(img);
           } else if (['mp4', 'webm', 'ogg'].includes(fileType)) {
-            // Add a video element to the gallery
+            // Add video element to the gallery
             const video = document.createElement('video');
             video.src = url;
             video.controls = true;
@@ -73,4 +57,24 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 });
 
+// Function to show image in overlay
+function showImageInOverlay(url) {
+  const overlay = document.getElementById('imageOverlay');
+  const overlayImage = document.getElementById('overlayImage');
+  overlayImage.src = url;  // Set the clicked image in the overlay
+  overlay.style.display = 'flex';  // Show the overlay
+}
 
+// Close the overlay when 'x' button is clicked
+const closeOverlay = document.getElementById("closeOverlay");
+closeOverlay.addEventListener("click", function() {
+  document.getElementById("imageOverlay").style.display = "none";
+});
+
+// Optionally, close the overlay if the user clicks outside the image
+const overlay = document.getElementById("imageOverlay");
+overlay.addEventListener("click", function(event) {
+  if (event.target === overlay) {
+    overlay.style.display = "none";
+  }
+});
