@@ -1,37 +1,76 @@
-import * as THREE from 'three';
 
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+       
 
-const renderer = new THREE.WebGLRenderer();
-renderer.setSize( window.innerWidth, window.innerHeight );
-document.body.appendChild( renderer.domElement );
+// Import the Firebase SDK
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+import { getStorage, ref, listAll, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-storage.js";
+//  firebase
 
-const geometry = new THREE.BoxGeometry( 1, 1, 1 );
-const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-const cube = new THREE.Mesh( geometry, material );
-scene.add( cube );
-//
-const geometry1 = new THREE.BoxGeometry( 1, 1, 1 );
-const material1 = new THREE.MeshBasicMaterial( { color: 0x00ffff } );
-const cube1 = new THREE.Mesh( geometry1, material1 );
-scene.add( cube1 );
-//
+    // Import the functions you need from the SDKs you need
+    
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-analytics.js";
 
-//
+     // Import the Firebase SDK
+    
+    
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 
-camera.position.z = 5;
+// Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyDc1r-4dJDie-Q-09XXRzQ_rg4g5I-ADG8",
+  authDomain: "karanja-3d.firebaseapp.com",
+  projectId: "karanja-3d",
+  storageBucket: "karanja-3d.appspot.com",
+  messagingSenderId: "656913140329",
+  appId: "1:656913140329:web:b32e65ba7223b19a2bf0f8",
+  measurementId: "G-P3YBXGKL8C"
+};
 
-function animate() {
-	requestAnimationFrame( animate );
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const storage = getStorage(app);
+ // Initialize Firebase
+    
+ const analytics = getAnalytics(app);
+ // Initialize Firebase
 
-	cube.rotation.x += 0.01;
-	cube.rotation.y += 0.01;
+// Function to load images and videos from Firebase Storage
+document.addEventListener("DOMContentLoaded", async () => {
+  const gallery = document.getElementById('gallery');
+  const storageRef = ref(storage, 'upload/');  // Reference to 'upload/' folder
 
-    cube1.rotation.x += -0.01;
-	cube1.rotation.y += -0.01;
+  // List all files in 'uploads/' folder
+  listAll(storageRef)
+    .then((res) => {
+      res.items.forEach((itemRef) => {
+        // Get the download URL for each file
+        getDownloadURL(itemRef).then((url) => {
+          // Check if the file is an image or video based on file extension
+          const fileType = itemRef.name.split('.').pop().toLowerCase();
+          if (['jpg', 'jpeg', 'png', 'gif'].includes(fileType)) {
+            // Add an image element to the gallery
+            const img = document.createElement('img');
+            img.src = url;
+            gallery.appendChild(img);
+          } else if (['mp4', 'webm', 'ogg'].includes(fileType)) {
+            // Add a video element to the gallery
+            const video = document.createElement('video');
+            video.src = url;
+            video.controls = true;
+            gallery.appendChild(video);
+          }
+        }).catch((error) => {
+          console.error('Error fetching file:', error);
+        });
+      });
+    })
+    .catch((error) => {
+      console.error('Error listing files:', error);
+    });
+});
 
-	renderer.render( scene, camera );
-}
 
-animate();
