@@ -49,21 +49,17 @@ document.addEventListener("DOMContentLoaded", async () => {
             const img = document.createElement('img');
             img.src = url;
             img.alt = itemRef.name;
-            img.loading = 'lazy';  // Lazy load images
             img.addEventListener('click', () => {
               // Show the image in the overlay when clicked
               showImageInOverlay(url);
             });
             gallery.appendChild(img);
-            
-            // Cache the image URL
-            if ('serviceWorker' in navigator) {
-              navigator.serviceWorker.ready.then((registration) => {
-                caches.open(CACHE_NAME).then(cache => {
-                  cache.add(url);  // Add the image URL to the cache
-                });
-              });
-            }
+          // } else if (['mp4', 'webm', 'ogg'].includes(fileType)) {
+          //   // Add video element to the gallery
+          //   const video = document.createElement('video');
+          //   video.src = url;
+          //   video.controls = true;
+          //   gallery.appendChild(video);
           }
         }).catch((error) => {
           console.error('Error fetching file:', error);
