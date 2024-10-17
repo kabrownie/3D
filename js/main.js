@@ -19,6 +19,9 @@ const app = initializeApp(firebaseConfig);
 const storage = getStorage(app);
 const analytics = getAnalytics(app);
 
+// Define the cache name
+const CACHE_NAME = 'firebase-cache-v1';
+
 // Register the service worker
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('service-worker.js')
@@ -56,9 +59,8 @@ document.addEventListener("DOMContentLoaded", async () => {
             // Cache the image URL
             if ('serviceWorker' in navigator) {
               navigator.serviceWorker.ready.then((registration) => {
-                const cache = caches.open(CACHE_NAME);
-                cache.then(cache => {
-                  cache.add(url);
+                caches.open(CACHE_NAME).then(cache => {
+                  cache.add(url);  // Add the image URL to the cache
                 });
               });
             }
