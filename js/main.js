@@ -1,6 +1,6 @@
-// Main JavaScript File
+// Import Firebase SDK
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
-import { getStorage, ref, listAll, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-storage.js";
+import { getStorage, ref, listAll, getDownloadURL, uploadBytes } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-storage.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-analytics.js";
 
 // Firebase configuration
@@ -19,57 +19,70 @@ const app = initializeApp(firebaseConfig);
 const storage = getStorage(app);
 const analytics = getAnalytics(app);
 
-// Define the cache name
-const CACHE_NAME = 'firebase-cache-v1';
-
-// Register the service worker
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('service-worker.js')
-    .then((registration) => {
-      console.log('Service Worker registered with scope:', registration.scope);
-    })
-    .catch((error) => {
-      console.error('Service Worker registration failed:', error);
+// Open or create IndexedDB database
+const dbPromise = idb.openDB('file-cache', 1, {
+  upgrade(db) {
+    db.createObjectStore('files', {
+      keyPath: 'name'
     });
+  }
+});
+
+// Cache files function
+async function cacheFile(url, name) {
+  const db = await dbPromise;
+  await db.put('files', { name, url });
 }
 
-// Load images and videos from Firebase Storage and display in gallery
-document.addEventListener("DOMContentLoaded", async () => {
+// Load cached files function
+async function loadCachedFiles() {
+  const db = await dbPromise;
+  const cachedFiles = await db.getAll('files');
+
+  cachedFiles.forEach(file => {
+    const img = document.createElement('img');
+    img.src = file.url;
+    img.alt = file.name;
+    img.loading = 'lazy';
+    img.addEventListener('click', () => {
+      showImageInOverlay(file.url);
+    });
+    document.getElementById('gallery').appendChild(img);
+  });
+}
+
+// Load gallery function
+async function loadGallery() {
   const gallery = document.getElementById('gallery');
-  const storageRef = ref(storage, 'upload/'); // Reference to 'upload/' folder
+  gallery.innerHTML = ''; // Clear existing gallery content
+  const storageRef = ref(storage, 'upload/');
 
   listAll(storageRef)
-    .then((res) => {
-      res.items.forEach((itemRef) => {
-        // Get download URL for each file
-        getDownloadURL(itemRef).then((url) => {
+    .then(async (res) => {
+      for (const itemRef of res.items) {
+        try {
+          const url = await getDownloadURL(itemRef);
+          await cacheFile(url, itemRef.name); // Cache the file
           const fileType = itemRef.name.split('.').pop().toLowerCase();
           if (['jpg', 'jpeg', 'png', 'gif'].includes(fileType)) {
-            // Add image element to the gallery
             const img = document.createElement('img');
             img.src = url;
             img.alt = itemRef.name;
+            img.loading = 'lazy';
             img.addEventListener('click', () => {
-              // Show the image in the overlay when clicked
               showImageInOverlay(url);
             });
             gallery.appendChild(img);
-          } else if (['mp4', 'webm', 'ogg'].includes(fileType)) {
-            // Add video element to the gallery
-            const video = document.createElement('video');
-            video.src = url;
-            video.controls = true;
-            gallery.appendChild(video);
           }
-        }).catch((error) => {
+        } catch (error) {
           console.error('Error fetching file:', error);
-        });
-      });
+        }
+      }
     })
     .catch((error) => {
       console.error('Error listing files:', error);
     });
-});
+}
 
 // Function to show image in overlay
 function showImageInOverlay(url) {
@@ -91,4 +104,10 @@ overlay.addEventListener("click", function(event) {
   if (event.target === overlay) {
     overlay.style.display = "none";
   }
+});
+
+// Load cached files and gallery on page load
+document.addEventListener("DOMContentLoaded", async () => {
+  await loadCachedFiles(); // Load cached files
+  loadGallery(); // Load gallery from Firebase
 });
