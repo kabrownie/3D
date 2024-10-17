@@ -1,5 +1,4 @@
-// bean
-// Import Firebase SDK
+// Main JavaScript File
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
 import { getStorage, ref, listAll, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-storage.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-analytics.js";
@@ -19,6 +18,20 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const storage = getStorage(app);
 const analytics = getAnalytics(app);
+
+// Define the cache name
+const CACHE_NAME = 'firebase-cache-v1';
+
+// Register the service worker
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('service-worker.js')
+    .then((registration) => {
+      console.log('Service Worker registered with scope:', registration.scope);
+    })
+    .catch((error) => {
+      console.error('Service Worker registration failed:', error);
+    });
+}
 
 // Load images and videos from Firebase Storage and display in gallery
 document.addEventListener("DOMContentLoaded", async () => {
@@ -42,12 +55,15 @@ document.addEventListener("DOMContentLoaded", async () => {
               showImageInOverlay(url);
             });
             gallery.appendChild(img);
-          // } else if (['mp4', 'webm', 'ogg'].includes(fileType)) {
-          //   // Add video element to the gallery
-          //   const video = document.createElement('video');
-          //   video.src = url;
-          //   video.controls = true;
-          //   gallery.appendChild(video);
+            
+            // Cache the image URL
+            if ('serviceWorker' in navigator) {
+              navigator.serviceWorker.ready.then((registration) => {
+                caches.open(CACHE_NAME).then(cache => {
+                  cache.add(url);  // Add the image URL to the cache
+                });
+              });
+            }
           }
         }).catch((error) => {
           console.error('Error fetching file:', error);
