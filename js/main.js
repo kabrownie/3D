@@ -54,12 +54,12 @@ document.addEventListener("DOMContentLoaded", async () => {
               showImageInOverlay(url);
             });
             gallery.appendChild(img);
-          // } else if (['mp4', 'webm', 'ogg'].includes(fileType)) {
-          //   // Add video element to the gallery
-          //   const video = document.createElement('video');
-          //   video.src = url;
-          //   video.controls = true;
-          //   gallery.appendChild(video);
+          } else if (['mp4', 'webm', 'ogg'].includes(fileType)) {
+            // Add video element to the gallery
+            const video = document.createElement('video');
+            video.src = url;
+            video.controls = true;
+            gallery.appendChild(video);
           }
         }).catch((error) => {
           console.error('Error fetching file:', error);
