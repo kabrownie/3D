@@ -73,8 +73,7 @@ closeOverlay.addEventListener("click", function() {
 
 // Optionally, close the overlay if the user clicks outside the image
 const overlay = document.getElementById("imageOverlay");
-overlay.addEventListener("click", function(event) {
-  if (event.target === overlay) {
-    overlay.style.display = "none";
-  }
+overlay.addEventListener("click", function() {
+  document.getElementById("imageOverlay").style.display="none";
+  
 }); 
