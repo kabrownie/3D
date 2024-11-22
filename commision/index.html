@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D Character Commissions</title>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f9;
+      color: #333;
+    }
+    header {
+      background-color: #333;
+      color: #fff;
+      padding: 1rem 0;
+      text-align: center;
+    }
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
+    h1, h2 {
+      color: #555;
+    }
+    .pricing, .terms, .contact, .form-section {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+    ul {
+      list-style-type: disc;
+      margin: 10px 0 20px 20px;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+    input, textarea, select, button {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 0.9em;
+      color: #666;
+    }
+    button {
+      background-color: #333;
+      color: #fff;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #555;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>3D Character Commissions</h1>
+  </header>
+  <div class="container">
+    <h2>What I Offer</h2>
+    <div class="pricing">
+      <p><strong>Fully Sculpted and Rigged Stylized Characters:</strong> $50</p>
+      <ul>
+        <li>High-quality 3D character creation</li>
+        <li>Stylized art style</li>
+        <li>No furry or NSFW content</li>
+        <li>Reference required: Front and Side</li>
+      </ul>
+      <p><strong>Animations:</strong> $40 per minute of runtime</p>
+      <ul>
+        <li>Seamless and fluid animations</li>
+        <li>Reference required for specific/unique animations</li>
+      </ul>
+    </div>
+    <h2>Payment Information</h2>
+    <div class="terms">
+      <p><strong>Accepted Payment Methods:</strong></p>
+      <ul>
+        <li>M-Pesa</li>
+        <li>Payoneer</li>
+        <li>PayPal</li>
+      </ul>
+      <p>40% of the payment is required upfront.</p>
+      <p>If the client cancels the task, the upfront payment will not be refunded.</p>
+      <p>If I cancel the task for any reason, the upfront payment will be refunded.</p>
+    </div>
+    <h2>Contact Me</h2>
+    <div class="contact">
+      <p>Email: <a href="mailto:karanja3d@gmail.com">karanja3d@gmail.com</a></p>
+    </div>
+    <h2>Commission Form</h2>
+    <div class="form-section">
+      <form id="commissionForm">
+        <label for="name">Your Name:</label>
+        <input type="text" id="name" name="name" required>
+        <label for="email">Your Email:</label>
+        <input type="email" id="email" name="email" required>
+        <label for="contactMethod">Preferred Contact Method:</label>
+        <select id="contactMethod" name="contactMethod" required>
+          <option value="email">Email</option>
+          <option value="telegram">Telegram</option>
+          <option value="discord">Discord</option>
+        </select>
+        <label for="commissionType">Commission Type:</label>
+        <select id="commissionType" name="commissionType" required>
+          <option value="character">Character Design</option>
+          <option value="animation">Animation</option>
+        </select>
+        <label for="details">Commission Details (references, etc.):</label>
+        <textarea id="details" name="details" rows="5" required></textarea>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+  <footer class="footer">
+    &copy; 2024 Kevin Karanja Makono. All rights reserved.
+  </footer>
+
+  <script>
+    // Firebase configuration
+    const firebaseConfig = {
+      apiKey: "YOUR_FIREBASE_API_KEY",
+      authDomain: "YOUR_FIREBASE_AUTH_DOMAIN",
+      projectId: "YOUR_FIREBASE_PROJECT_ID",
+      storageBucket: "YOUR_FIREBASE_STORAGE_BUCKET",
+      messagingSenderId: "YOUR_FIREBASE_MESSAGING_SENDER_ID",
+      appId: "YOUR_FIREBASE_APP_ID"
+    };
+
+    // Initialize Firebase
+    const app = firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    // Handle form submission
+    document.getElementById("commissionForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+      const formData = {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        contactMethod: document.getElementById("contactMethod").value,
+        commissionType: document.getElementById("commissionType").value,
+        details: document.getElementById("details").value,
+      };
+
+      try {
+        await db.collection("commissions").add(formData);
+        alert("Your commission request has been submitted. We will contact you upon acceptance.");
+        document.getElementById("commissionForm").reset();
+      } catch (error) {
+        console.error("Error saving commission request: ", error);
+        alert("An error occurred. Please try again.");
+      }
+    });
+  </script>
+</body>
+</html>
