@@ -222,19 +222,39 @@ fieldset {
 
 
 /* Preloader */
-
 #preloader {
     position: fixed;
     top: 0;
     left: 0;
     height: 100%;
     width: 100%;
-    background: #312f2f;
+    background-color: rgb(0, 0, 0); /* Dark overlay background */
     z-index: 999;
-    -webkit-transition: all .5s ease;
-    -moz-transition: all .5s ease;
-    transition: all .5s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    transition: all 0.5s ease;
 }
+
+#loaderGif {
+    width: 80%; /* Adjust the size of the GIF */
+    height: auto;
+}
+
+#loadingText {
+    color: #fff;
+    font-size: 1.5em;
+    font-family: Arial, sans-serif;
+    margin-top: 20px; /* Space below the GIF */
+    text-align: center;
+}
+
+
+/*  */
+
 
 body.loaded #preloader{
     opacity: 0;
