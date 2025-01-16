@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Karanja3D Animation Commission</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -40,9 +43,80 @@
             font-size: 0.9em;
             color: #e74c3c;
         }
+
+        /*  */
+ 
+ 
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+        .form-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+        input, select, textarea, button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #27ae60;
+            color: white;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #1e8449;
+        }
+        .note {
+            font-size: 0.9em;
+            color: #e74c3c;
+        }
+   
     </style>
 </head>
 <body>
+    <header>
+        <!-- Preloader Start -->
+        
+        
+    
+        <!-- Preloader End -->   
+      
+        <!-- Home & Menu Section Start -->
+        <div class="container">
+            
+                                        <ul class="nav navbar-nav navbar-right">
+                                           
+                                           
+                                            <li><a class="smoth-scroll" href="https://kabrownie.github.io">Back to Karanja</a>
+                                            </li>
+                                         
+                                           
+                                            </li>
+                                        </ul>
+        </div>
+                                   
+        </header>
 
     <div class="container">
         <h1>Karanja3D Animation Commission</h1>
@@ -108,12 +182,90 @@
             <p>If you're interested, <strong>use the form below</strong> to let me know your project details and which character option you’d like to go with!</p>
             <p>You could also include a reference animation video or GIF showcasing the type of movement you’d like for clarity.</p>
             <p class="note">Note: 50% Payment is required upfront to secure your slot.</p>
-        </div><iframe src=  "https://docs.google.com/forms/d/e/1FAIpQLSe79ByS5j07LQQebecPkPSOVKpfLG_6uixUEVXl0PWL5st4Qw/embedded=true" 
-        width="640" height="900" frameborder="0" marginheight="0" marginwidth="0">
-    Loading…
-</iframe>
+        </div>
 
     </div>
 
+
+
+
+    <h1>Karanja3D Animation Commission Form</h1>
+    <div class="form-container">
+        <form id="commissionForm">
+            <label for="name">Name *</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email *</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="preferredContact">Preferred Contact Method *</label>
+            <select id="preferredContact" name="preferredContact" required>
+                <option value="Email">Email</option>
+                <option value="Discord">Discord</option>
+                <option value="Telegram">Telegram</option>
+                <option value="WhatsApp">WhatsApp</option>
+                <option value="Other">Other</option>
+            </select>
+
+            <label for="socialHandle">Social Media Handle *</label>
+            <input type="text" id="socialHandle" name="socialHandle" placeholder="Enter your handle for the selected contact method" required>
+
+            <label for="animationLength">Animation Length *</label>
+            <select id="animationLength" name="animationLength" required>
+                <option value="15 seconds">15 seconds</option>
+                <option value="30 seconds">30 seconds</option>
+                <option value="1 minute">1 minute</option>
+                <option value="2 minutes">2 minutes</option>
+            </select>
+
+            <label for="characterOption">Character Option *</label>
+            <select id="characterOption" name="characterOption" required>
+                <option value="Provided by Client">Character Provided by You (No Extra Cost)</option>
+                <option value="Pre-Made">Use My Pre-Made Characters (+USD 9)</option>
+                <option value="Custom Design">Custom Character Design (+USD 50)</option>
+            </select>
+
+            <label for="animationDescription">Animation Description *</label>
+            <textarea id="animationDescription" name="animationDescription" rows="4" placeholder="Describe your animation idea, including movement style, scene, emotions, or specific actions" required></textarea>
+
+            <label for="references">References/Materials *</label>
+            <input type="url" id="references" name="references" placeholder="Provide links to reference images, videos, or other materials" required>
+
+            <label for="deadline">Project Deadline (Optional)</label>
+            <input type="date" id="deadline" name="deadline">
+
+            <label for="intendedUse">Intended Use of Animation *</label>
+            <select id="intendedUse" name="intendedUse" required>
+                <option value="Personal">Personal</option>
+                <option value="Commercial">Commercial</option>
+                <option value="Social Media">Social Media</option>
+                <option value="Other">Other</option>
+            </select>
+
+            <label for="budget">Budget (Optional)</label>
+            <input type="number" id="budget" name="budget" placeholder="Enter your budget">
+
+            <div class="note">
+                <input type="checkbox" id="terms" name="terms" required>
+                <label for="terms">I agree to the terms and conditions, including the stylized animation focus, limitations (no NSFW or simulations), and the 50% upfront payment requirement.</label>
+            </div>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script>
+       
+    </script>
+ <a href="#" class="scroll-to-top"><i class="fa fa-angle-up"></i></a>
+ <!-- Back to Top End -->
+ 
+ 
+ <!-- All Javascript Plugins  -->
+ <script type="text/javascript" src="js/jquery.min.js"></script>
+ <script type="text/javascript" src="js/plugin.js"></script>
+
+ <!-- Main Javascript File  -->
+ <script type="text/javascript" src="js/scripts.js"></script>
 </body>
 </html>
