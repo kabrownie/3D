@@ -270,7 +270,8 @@
             await setDoc(docRef, formData);
             
             alert('Your commission request has been submitted successfully!');
-            form.reset();
+           
+            window.location.href = 'https://kabrownie.github.io/3D';
         } catch (error) {
             alert('Error submitting your request. Please try again.');
             console.error(error);
