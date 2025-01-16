@@ -17,52 +17,7 @@
   12. Google Map
  
 
-*/ // Firebase configuration
-const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
-};
-
-// Initialize Firebase
-const app = firebase.initializeApp(firebaseConfig);
-const database = firebase.database();
-
-// Form submission handler
-const form = document.getElementById('commissionForm');
-form.addEventListener('submit', (e) => {
-  e.preventDefault();
-
-  const formData = {
-      name: document.getElementById('name').value,
-      email: document.getElementById('email').value,
-      preferredContact: document.getElementById('preferredContact').value,
-      socialHandle: document.getElementById('socialHandle').value,
-      animationLength: document.getElementById('animationLength').value,
-      characterOption: document.getElementById('characterOption').value,
-      animationDescription: document.getElementById('animationDescription').value,
-      references: document.getElementById('references').value,
-      deadline: document.getElementById('deadline').value || "Not specified",
-      intendedUse: document.getElementById('intendedUse').value,
-      budget: document.getElementById('budget').value || "Not specified",
-  };
-
-  // Save data to Firebase Realtime Database
-  const newCommissionRef = database.ref('commissions').push();
-  newCommissionRef.set(formData)
-      .then(() => {
-          alert('Your commission request has been submitted successfully!');
-          form.reset();
-      })
-      .catch((error) => {
-          alert('Error submitting your request. Please try again.');
-          console.error(error);
-      });
-});
+*/ 
 
 // modal
 $('#spanYear').html(new Date().getFullYear());
