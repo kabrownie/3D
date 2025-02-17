@@ -4,6 +4,160 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Karanja3D Animation Commission</title>
+    <style>
+        /* ADDED STYLES */
+        .tier-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .tier-table th, .tier-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        .tier-table th {
+            background-color: #2C3E50;
+            color: white;
+        }
+        .blender-checklist {
+            background: #f8f9fa;
+            padding: 15px;
+            border-left: 4px solid #3498db;
+            margin: 15px 0;
+        }
+        .timeline {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            margin: 20px 0;
+        }
+        .timeline-step {
+            background: #e8f4f8;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- SERVICE TIERS SECTION -->
+    <div class="container">
+        <h2>Animation Service Tiers</h2>
+        <table class="tier-table">
+            <tr>
+                <th>Tier</th>
+                <th>Price</th>
+                <th>Scope</th>
+                <th>Turnaround</th>
+            </tr>
+            <tr>
+                <td><strong>Simple</strong></td>
+                <td>$90</td>
+                <td>
+                    <ul>
+                        <li>Basic movements (walk cycles, idle poses)</li>
+                        <li>1 character (client/pre-made)</li>
+                        <li>Single camera angle</li>
+                    </ul>
+                </td>
+                <td>3 business days</td>
+            </tr>
+            <tr>
+                <td><strong>Standard</strong></td>
+                <td>$150</td>
+                <td>
+                    <ul>
+                        <li>Complex actions (combat, interactions)</li>
+                        <li>2 characters + simple props</li>
+                        <li>2 camera angles</li>
+                    </ul>
+                </td>
+                <td>5 business days</td>
+            </tr>
+            <tr>
+                <td><strong>Premium</strong></td>
+                <td>$250</td>
+                <td>
+                    <ul>
+                        <li>Cinematic sequences</li>
+                        <li>Custom character + environment</li>
+                        <li>Lip sync & facial animation</li>
+                    </ul>
+                </td>
+                <td>7-10 business days</td>
+            </tr>
+        </table>
+        <p class="note">+$20/day rush fee available</p>
+    </div>
+
+    <!-- BLENDER GUIDELINES SECTION -->
+    <div class="container">
+        <h2>Blender Requirements</h2>
+        <div class="blender-checklist">
+            <h3>Essential Checklist:</h3>
+            <ul>
+                <li>✅ Characters must be rigged in Blender 3.6+</li>
+                <li>✅ Use Rigify or Auto-Rig Pro compatible rigs</li>
+                <li>❌ No simulation-heavy assets (cloth/fluid)</li>
+            </ul>
+            <p>Need help? <a href="#blender-services">See our Blender support services</a></p>
+        </div>
+    </div>
+
+    <!-- UPDATED PAYMENT SECTION -->
+    <div class="container">
+        <h2>Workflow & Payment</h2>
+        <div class="timeline">
+            <div class="timeline-step">
+                <strong>Day 1</strong><br>
+                50% Deposit<br>
+                Pose Approval
+            </div>
+            <div class="timeline-step">
+                <strong>Day 3</strong><br>
+                30% Payment<br>
+                Motion Approval
+            </div>
+            <div class="timeline-step">
+                <strong>Final Day</strong><br>
+                20% Balance<br>
+                File Delivery
+            </div>
+        </div>
+    </div>
+
+    <!-- UPDATED FORM SECTION -->
+    <div class="form-container">
+        <form id="commissionForm">
+            <!-- Added Tier Selection -->
+            <label for="serviceTier">Service Tier *</label>
+            <select id="serviceTier" name="serviceTier" required>
+                <option value="simple">Simple ($90)</option>
+                <option value="standard">Standard ($150)</option>
+                <option value="premium">Premium ($250)</option>
+            </select>
+
+            <!-- Added Blender Services -->
+            <label for="blenderServices">Blender Add-ons:</label>
+            <select id="blenderServices" name="blenderServices">
+                <option value="none">None</option>
+                <option value="rigCheck">Rig Optimization (+$30)</option>
+                <option value="fullRig">Custom Rigging (+$75)</option>
+            </select>
+
+            <!-- Removed animation length dropdown -->
+            <!-- Keep existing other fields -->
+        </form>
+    </div>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Karanja3D Animation Commission</title>
 
     <style>
         body {
