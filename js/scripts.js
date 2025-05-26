@@ -1,24 +1,3 @@
-
-/*
-   
-   Table Of Content
-   
-   1. Preloader
-   2. Smooth Scroll
-   3. Scroll Naviagation Background Change with Sticky Navigation
-   4. Mobile Navigation Hide or Collapse on Click
-   5. Scroll To Top
-   6. Typed.js
-   7. Parallax Background
-   8. Portfolio Filtering
-   9. Magnific Popup
-  10. Testimonial Carousel/Slider
-  11. Statistics Counter
-  12. Google Map
- 
-
-*/ 
-
 // modal
 $('#spanYear').html(new Date().getFullYear());
   document.addEventListener('contextmenu', function (event) {
@@ -67,10 +46,7 @@ $(document).ready(function(){
             }, 1000);
             e.preventDefault();
         });
-		
 
-
-       
        /* Scroll Naviagation Background Change with Sticky Navigation */
 		 
         $(window).on('scroll', function () {
@@ -80,10 +56,7 @@ $(document).ready(function(){
                 $('.header-top-area').removeClass('navigation-background');
             }
         });
-		
-		
-		
-		
+
        /* Mobile Navigation Hide or Collapse on Click */
 		
         $(document).on('click', '.navbar-collapse.in', function (e) {
@@ -96,10 +69,7 @@ $(document).ready(function(){
             offset: 195
         
 		 });
-		 
-		
-		
-		
+
         /* Scroll To Top */
 		
         $(window).scroll(function(){
@@ -115,10 +85,7 @@ $(document).ready(function(){
 		  $('html, body').animate({scrollTop : 0},800);
 		  return false;
 	    });
-		
-		
-		
-		
+
         /* Typed.js */
 	 	
         $(window).load(function(){
@@ -141,36 +108,11 @@ $(document).ready(function(){
             verticalOffset: 0,
         });
 
-        
-   
-
-		
-		
         /* Portfolio Filtering */
 
         $('.portfolio-inner').mixItUp();
-
-
        
-        /* Magnific Popup */
-
-	   
-		 
-        /* Testimonial Carousel/Slider */
-
-      
-		
-		
-		
-        /* Statistics Counter */
-		
-		   
-		  
-         
-         /* Google Map */
-		 
-        
-              
+        /* Magnific Popup */     
 		   
             });
 
