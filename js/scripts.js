@@ -29,13 +29,7 @@ $(document).ready(function(){
     jQuery(document).ready(function () {
 
         
-       /* Preloader */
-		
-        $(window).on('load', function() {
-          $('body').addClass('loaded');
-        });
-		
-		
+      
 		
        /* Smooth Scroll */
 
